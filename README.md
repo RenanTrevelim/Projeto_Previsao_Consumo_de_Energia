@@ -21,6 +21,8 @@ O conjunto de dados é composto pelas seguintes variáveis:
 
 🔸consumo_kwh – consumo de energia elétrica em kWh (variável alvo)
 
+
+
 🧹 2. Preparação dos Dados
 
 Foram realizadas as seguintes etapas:
@@ -32,6 +34,8 @@ Foram realizadas as seguintes etapas:
 🔸Padronização das colunas numéricas
 
 🔸Separação de variáveis explicativas (X) e variável alvo (y)
+
+
 
 🔗 3. Análise de Correlação
 
@@ -45,6 +49,8 @@ Observou-se uma correlação muito forte (~0.79) entre:
 
 Isso indica multicolinearidade, o que pode prejudicar a regressão linear.
 
+
+
 ❌ 4. Exclusão de Feature
 
 Para evitar redundância de informação e instabilidade no modelo, a variável:
@@ -53,6 +59,8 @@ Para evitar redundância de informação e instabilidade no modelo, a variável:
 foi removida, pois sua informação já é representada adequadamente por fim_de_semana.
 
 Essa decisão melhora a robustez estatística e a interpretação do modelo.
+
+
 
 🧠 5. Modelagem Preditiva
 
@@ -67,7 +75,9 @@ Métricas:
 
 🔸MAE
 
-RMSE
+🔸RMSE
+
+
 
 📈 6. Resultados
 🔸 Métricas no Conjunto de Treino
@@ -93,6 +103,7 @@ RMSE = 1.51
 ✅ Excelente proximidade entre treino e teste.
 ✅ Boa capacidade de generalização.
 
+
 📊 7. Visualizações
 Real vs Previsto
 
@@ -116,6 +127,8 @@ Isso indica que o modelo não apresenta distorções relevantes.
 
 <img width="575" height="464" alt="image" src="https://github.com/user-attachments/assets/6ba3af62-2508-497f-bb1e-bed49de93fe9" />
 
+
+
 🔁 8. Validação Cruzada (K-Fold)
 
 O modelo foi avaliado com K-Fold (5 divisões).
@@ -129,6 +142,7 @@ Teste ≈ 3.01
 ✅ Diferença mínima
 ✅ Alta estabilidade
 ✅ Baixo risco de overfitting
+
 
 📌 Conclusão
 
