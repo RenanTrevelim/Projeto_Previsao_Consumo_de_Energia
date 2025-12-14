@@ -144,6 +144,16 @@ Teste ≈ 3.01
 ✅ Baixo risco de overfitting
 
 
+-> 9. Tela do Aplicativo para se Utilizar
+
+<img width="976" height="826" alt="image" src="https://github.com/user-attachments/assets/e900d08d-9fdf-415b-8422-bd40f19890f1" />
+
+- Interface bem intuititva para uso
+
+- Disponibilizar aplicação para os usuários
+
+
+
 📌 Conclusão
 
 🔸Os resultados mostram que o modelo de regressão linear apresenta desempenho consistente e estável, com boa capacidade preditiva e comportamento semelhante entre os dados de treino e teste, indicando que é um modelo confiável para o problema analisado.
