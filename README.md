@@ -1,4 +1,4 @@
-📊 Previsão de Consumo de Energia com Regressão Linear
+📊 Previsão de Consumo de Energia - Regressão Linear
 
 Este projeto tem como objetivo prever o consumo de energia elétrica (kWh) em residências utilizando técnicas de Regressão Linear, analisando fatores como temperatura, características do imóvel e comportamento dos moradores.
 
