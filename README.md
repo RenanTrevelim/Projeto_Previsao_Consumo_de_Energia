@@ -1,159 +1,73 @@
-📊 Previsão de Consumo de Energia - Regressão Linear
+# ⚡ Previsão de Consumo de Energia Elétrica  
+### Machine Learning com Scikit-Learn, XGBoost e Spark ML + Deploy com Streamlit
 
-Este projeto tem como objetivo prever o consumo de energia elétrica (kWh) em residências utilizando técnicas de Regressão Linear, analisando fatores como temperatura, características do imóvel e comportamento dos moradores.
+Este projeto demonstra a construção de modelos de regressão para previsão do consumo de energia elétrica (kWh) utilizando duas abordagens distintas:
 
-🔍 1. Entendimento dos Dados
-O conjunto de dados é composto pelas seguintes variáveis:
+- ✅ **Scikit-Learn + XGBoost (ambiente local / single-machine)**
+- ✅ **Spark MLlib (ambiente distribuído / Big Data)**
 
-🔸data – data da medição do consumo
+O modelo disponibilizado na aplicação web foi treinado com **XGBoost** e posteriormente exportado para produção.
 
-🔸 temperatura – temperatura média do dia
+---
 
-🔸 dia_da_semana – dia da semana (0 = segunda-feira, 6 = domingo)
+## 🎯 Objetivo
 
-🔸fim_de_semana – indicador de final de semana (0 = não, 1 = sim)
+Prever o consumo diário de energia elétrica (kWh) de uma residência com base nas seguintes variáveis:
 
-🔸 feriado – identifica se o dia é feriado (0 = não, 1 = sim)
+- Temperatura média do dia  
+- Indicador de fim de semana  
+- Indicador de feriado  
+- Área do imóvel (m²)  
+- Número de moradores  
 
-🔸 area_m2 – área do imóvel em metros quadrados
+---
 
-🔸numero_moradores – quantidade de pessoas na residência
+## 🧠 Modelagem
 
-🔸consumo_kwh – consumo de energia elétrica em kWh (variável alvo)
+### 🔹 1. Implementação com Scikit-Learn + XGBoost
 
+- Tratamento e transformação de dados  
+- Conversão de variáveis categóricas para formato numérico (0/1)  
+- Padronização das variáveis com `StandardScaler`  
+- Aplicação de regressão com **XGBoost Regressor**  
+- Avaliação de métricas (R², MAE, RMSE)  
+- Serialização do modelo (`modelo_xgb.pkl`)  
+- Serialização do scaler (`scaler.pkl`)  
+- Modelo utilizado no deploy  
 
+**Notebook de treinamento:**  
+`Machine_Learning_Regressão_Consumo_de_Energia.ipynb`
 
-🧹 2. Preparação dos Dados
+---
 
-Foram realizadas as seguintes etapas:
+### 🔹 2. Implementação com Spark ML (PySpark)
 
-🔸 Validação de tipos de dados
+- Criação de pipeline distribuído  
+- Manipulação de dados em ambiente Spark  
+- Treinamento de modelo de regressão utilizando MLlib  
+- Comparação de desempenho  
 
-🔸 Análise de valores ausentes
+**Notebook Spark:**  
+`Spark - ML Regressão (valor consumo energia).ipynb`
 
-🔸Padronização das colunas numéricas
+---
 
-🔸Separação de variáveis explicativas (X) e variável alvo (y)
+## 🚀 Deploy da Aplicação
 
+A aplicação foi desenvolvida em **Streamlit**, permitindo que o usuário insira dados e receba a previsão em tempo real.
 
+**Arquivo principal:**  
+`Main.py`
 
-🔗 3. Análise de Correlação
+---
 
-Foi gerada uma matriz de correlação para avaliar relações entre as variáveis.
+### 🔄 Fluxo da aplicação
 
-Destaque importante:
+1. Usuário insere dados no formulário  
+2. Aplicação converte variáveis categóricas (Sim/Não → 0/1)  
+3. Dados são padronizados utilizando o scaler salvo  
+4. Modelo treinado com XGBoost é carregado via `joblib`  
+5. Dados são convertidos em `DMatrix` (estrutura otimizada do XGBoost)  
+6. Previsão é realizada e exibida em kWh  
 
-Observou-se uma correlação muito forte (~0.79) entre:
-🔸 dia_da_semana
-🔸fim_de_semana
-
-Isso indica multicolinearidade, o que pode prejudicar a regressão linear.
-
-
-
-❌ 4. Exclusão de Feature
-
-Para evitar redundância de informação e instabilidade no modelo, a variável:
-
-🔸dia_da_semana
-foi removida, pois sua informação já é representada adequadamente por fim_de_semana.
-
-Essa decisão melhora a robustez estatística e a interpretação do modelo.
-
-
-
-🧠 5. Modelagem Preditiva
-
-Foi aplicada Regressão Linear utilizando Scikit-Learn.
-
-O modelo foi avaliado com:
-
-🔸Train/Test split
-Métricas:
-
-🔸 R²
-
-🔸MAE
-
-🔸RMSE
-
-
-
-📈 6. Resultados
-🔸 Métricas no Conjunto de Treino
-
-R² = 0.76
-
-MAE = 2.40
-
-RMSE = 1.55
-
-🔸 Métricas no Conjunto de Teste
-
-R² = 0.77
-
-MAE = 2.29
-
-RMSE = 1.51
-
-<img width="352" height="217" alt="image" src="https://github.com/user-attachments/assets/3c99bec2-93b1-49ee-8a93-0ec0e9ac8a5c" />
-
-
-✅ O modelo apresentou desempenho consistente e sem overfitting.
-✅ Excelente proximidade entre treino e teste.
-✅ Boa capacidade de generalização.
-
-
-📊 7. Visualizações
-Real vs Previsto
-
-🔸O gráfico mostra forte alinhamento entre os valores previstos e reais, indicando que o modelo captura bem a tendência dos dados.
-
-<img width="583" height="466" alt="image" src="https://github.com/user-attachments/assets/dd75192e-ce9c-481e-b35a-667ade6e4915" />
-
-Análise dos Resíduos
-
-O histograma apresenta:
-
-🔸Distribuição aproximadamente normal
-
-🔸Simetria ao redor de zero
-
-🔸Ausência de viés sistemático
-
-🔸Erros concentrados próximos de zero
-
-Isso indica que o modelo não apresenta distorções relevantes.
-
-<img width="575" height="464" alt="image" src="https://github.com/user-attachments/assets/6ba3af62-2508-497f-bb1e-bed49de93fe9" />
-
-
-
-🔁 8. Validação Cruzada (K-Fold)
-
-O modelo foi avaliado com K-Fold (5 divisões).
-
-RMSE Médio:
-
-Treino ≈ 2.99
-
-Teste ≈ 3.01
-
-✅ Diferença mínima
-✅ Alta estabilidade
-✅ Baixo risco de overfitting
-
-
--> 9. Tela do Aplicativo para se Utilizar
-
-<img width="976" height="826" alt="image" src="https://github.com/user-attachments/assets/e900d08d-9fdf-415b-8422-bd40f19890f1" />
-
-- Interface bem intuititva para uso
-
-- Disponibilizar aplicação para os usuários
-
-
-
-📌 Conclusão
-
-🔸Os resultados mostram que o modelo de regressão linear apresenta desempenho consistente e estável, com boa capacidade preditiva e comportamento semelhante entre os dados de treino e teste, indicando que é um modelo confiável para o problema analisado.
+---

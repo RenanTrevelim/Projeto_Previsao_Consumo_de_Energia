@@ -2,6 +2,7 @@ import streamlit as st
 import joblib
 import numpy as np
 import pandas as pd
+import xgboost as xgb
 
 
 st.set_page_config(
@@ -51,7 +52,8 @@ with st.expander("Como funciona a previsão de consumo?"):
     planejamento e análise de gasto energético.
     """)
 
-modelo = joblib.load('modelo.pkl')
+modelo = joblib.load('modelo_xgb.pkl')
+scaler = joblib.load('scaler.pkl')
 
 fim_de_semana = st.selectbox("É fim de semana?", options=["Sim", "Não"])
 fim_de_semana = 1 if fim_de_semana == "Sim" else 0
@@ -70,8 +72,24 @@ if enviar:
         st.warning('Por favor, preencha todos os campos antes de enviar.')
     else:
 
-        entrada = np.array([[fim_de_semana, feriado, temperatura, area_m2, numero_moradores]])
+        colunas = ["fim_de_semana", "feriado", "temperatura", "area_m2", "numero_moradores"]
 
-        consumo_previsto = modelo.predict(entrada)[0]
+        entrada_df = pd.DataFrame([[
+            fim_de_semana,
+            feriado,
+            temperatura,
+            area_m2,
+            numero_moradores
+        ]], columns=colunas)
+
+        # aplica o scaler mantendo os nomes
+        entrada_scaled = scaler.transform(entrada_df)
+        entrada_scaled_df = pd.DataFrame(entrada_scaled, columns=colunas)
+
+        # cria DMatrix com nomes corretos
+        dentrada = xgb.DMatrix(entrada_scaled_df)
+
+        consumo_previsto = modelo.predict(dentrada)[0]
 
         st.write(f"Consumo previsto: **{consumo_previsto:.2f} kWh**")
+
