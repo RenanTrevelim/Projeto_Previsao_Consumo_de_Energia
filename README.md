@@ -71,3 +71,4 @@ A aplicação foi desenvolvida em **Streamlit**, permitindo que o usuário insir
 6. Previsão é realizada e exibida em kWh  
 
 ---
+<img width="825" height="743" alt="image" src="https://github.com/user-attachments/assets/d1c5f669-80f9-4a4d-8b02-98f38f7abca5" />
